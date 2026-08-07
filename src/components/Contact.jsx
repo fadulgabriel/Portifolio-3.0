@@ -93,7 +93,7 @@ const Contact = () => {
 
             <div className="form-group">
               <label htmlFor="message">Mensagem <span>*</span></label>
-              <textarea id="message" name="message" rows="4" required placeholder="Como posso ajudar?"></textarea>
+              <textarea id="message" name="message" rows="4" required placeholder="Detalhes do projeto"></textarea>
             </div>
 
             {successMessage && <div className="success-message">{successMessage}</div>}
