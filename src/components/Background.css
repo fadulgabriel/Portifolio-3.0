@@ -5,7 +5,7 @@
     width: 100%; /* Corrigido de 100vw para 100% para evitar vazamento lateral */
     height: 100%; /* Corrigido de 100vh para lidar melhor com a barra do navegador no celular */
     z-index: -1;
-    background-color: var(--bg-primary); /* Ajustado para usar sua variável global correta */
+    background-color: var(--color-background); /* Atualizado para a nova paleta clara */
     overflow: hidden;
     pointer-events: none;
 }
@@ -18,10 +18,10 @@
     width: 100%;
     height: 100%;
     background-image:
-        linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        linear-gradient(to right, var(--color-surface-200) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--color-surface-200) 1px, transparent 1px);
     background-size: 50px 50px;
-    opacity: 0.5;
+    opacity: 0.5; /* Manteve a mesma discrição original */
 }
 
 /* Add an axis aesthetic */
@@ -32,7 +32,7 @@
     left: 0;
     width: 100%;
     height: 1px;
-    background-color: rgba(255, 107, 53, 0.1);
+    background-color: rgba(74, 89, 72, 0.1); /* --color-primary-400 (#4a5948) com 10% opacidade */
 }
 
 .math-grid::after {
@@ -42,7 +42,7 @@
     left: 50%;
     width: 1px;
     height: 100%;
-    background-color: rgba(255, 107, 53, 0.1);
+    background-color: rgba(74, 89, 72, 0.1); /* --color-primary-400 (#4a5948) com 10% opacidade */
 }
 
 .particles-layer {
@@ -55,22 +55,22 @@
 
 .math-particle {
     position: absolute;
-    color: var(--accent-color);
+    color: var(--color-primary-400); /* Substituiu --accent-color */
     font-family: 'Times New Roman', serif;
     font-style: italic;
     font-size: 2rem;
     user-select: none;
-    filter: drop-shadow(0 0 5px rgba(255, 107, 53, 0.3));
+    /* Removido o filter de drop-shadow laranja */
     will-change: transform, opacity;
 }
 
 /* =========================================
-   CONTENÇÃO MOBILE: SUAVIZA O LARANJA E REMOVE O EIXO
+   CONTENÇÃO MOBILE: SUAVIZA O FUNDO E REMOVE O EIXO
    ========================================= */
 @media (max-width: 768px) {
     .math-particle {
         font-size: 1.5rem; 
-        filter: drop-shadow(0 0 2px rgba(255, 107, 53, 0.1)); 
+        /* Removido o filter drop-shadow */
         opacity: 0.6; 
     }
 

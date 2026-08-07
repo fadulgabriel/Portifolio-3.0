@@ -52,23 +52,21 @@ const Contact = () => {
         <motion.h2
           className="section-title"
           initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
         >
           Entre em Contato
         </motion.h2>
 
         <motion.div
-          className="contact-wrapper"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : {}}
+          className="contact-wrapper glass-card"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
         >
-          <div className="contact-info">
-            <h3>Qual será nosso próximo desafio?</h3>
-            <p>
-              Me mande os detalhes do seu projeto no formulário abaixo, ou conecte-se comigo nas redes para falarmos sobre tecnologia e mercado.
-            </p>
+          <div className="contact-header">
             <div className="social-links-minimal">
               <a href="https://linkedin.com/in/fadulgabriel" target="_blank" rel="noreferrer" title="LinkedIn"><FaLinkedin /></a>
               <a href="https://github.com/fadulgabriel" target="_blank" rel="noreferrer" title="GitHub"><FaGithub /></a>
@@ -94,27 +92,20 @@ const Contact = () => {
             </div>
 
             <div className="form-group">
-              <label htmlFor="message">Descrição do Projeto <span>*</span></label>
-              <textarea id="message" name="message" rows="5" required placeholder="Conte-me um pouco sobre sua ideia..."></textarea>
+              <label htmlFor="message">Mensagem <span>*</span></label>
+              <textarea id="message" name="message" rows="4" required placeholder="Como posso ajudar?"></textarea>
             </div>
 
-            {successMessage && <div className="success-message" style={{ color: 'green', marginBottom: '15px' }}>{successMessage}</div>}
-            {errorMessage && <div className="error-message" style={{ color: 'red', marginBottom: '15px' }}>{errorMessage}</div>}
+            {successMessage && <div className="success-message">{successMessage}</div>}
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
 
-            <motion.button
+            <button
               type="submit"
               className="submit-btn"
               disabled={isSubmitting}
-              style={{
-                opacity: isSubmitting ? 0.7 : 1,
-                cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                willChange: 'transform, opacity'
-              }}
-              whileHover={!isSubmitting ? { scale: 1.05, boxShadow: "0px 0px 15px rgba(255,107,53,0.5)" } : {}}
-              whileTap={!isSubmitting ? { scale: 0.95 } : {}}
             >
               {isSubmitting ? 'Enviando...' : 'Enviar Mensagem'}
-            </motion.button>
+            </button>
           </form>
         </motion.div>
       </div>
@@ -123,4 +114,3 @@ const Contact = () => {
 }
 
 export default Contact
-

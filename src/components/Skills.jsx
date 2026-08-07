@@ -32,17 +32,14 @@ const Skills = () => {
           {skillCategories.map((category, index) => (
             <motion.div
               key={category.key}
-              className="skill-card-main"
+              className="skill-card-main glass-card"
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              whileHover={{
-                scale: 1.05,
-                boxShadow: "0px 0px 30px rgba(255,107,53,0.4)",
-                borderColor: "var(--accent-color)"
-              }}
+              whileHover={{ y: -4 }}
               style={{ willChange: 'transform, opacity' }}
             >
+              <div className="skill-card-blur"></div>
               <div className="category-header">
                 <span className="category-icon">{category.icon}</span>
                 <h3

@@ -25,7 +25,6 @@ const Header = () => {
   }
 
   const navItems = [
-    { id: 'about', label: 'Sobre' },
     { id: 'skills', label: 'Habilidades' },
     { id: 'projects', label: 'Projetos' },
     { id: 'contact', label: 'Contato' },
@@ -41,7 +40,7 @@ const Header = () => {
       <div className="container">
         <div className="header-content">
           <div className="logo" onClick={() => scrollToSection('home')}>
-            <span>Gabriel Fadul</span>
+            <span className="text-gradient-primary">Gabriel Fadul</span>
           </div>
 
           <nav className={`nav ${isMobileMenuOpen ? 'open' : ''}`}>

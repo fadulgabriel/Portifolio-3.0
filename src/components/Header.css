@@ -3,16 +3,17 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(10px);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.6);
   z-index: 1000;
   transition: var(--transition);
-  box-shadow: var(--shadow-sm);
-  border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+  box-shadow: none;
 }
 
 .header.scrolled {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-smooth);
 }
 
 .header-content {
@@ -25,16 +26,12 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
   cursor: pointer;
   transition: var(--transition);
 }
 
 .logo:hover {
-  filter: drop-shadow(0 0 10px rgba(255, 107, 53, 0.6));
+  transform: translateY(-2px);
 }
 
 .nav {
@@ -44,7 +41,7 @@
 }
 
 .nav-link {
-  color: var(--text-primary);
+  color: var(--color-text-primary);
   text-decoration: none;
   font-weight: 500;
   transition: var(--transition);
@@ -59,12 +56,12 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: var(--primary-color);
+  background-color: var(--color-primary-500);
   transition: width 0.3s ease;
 }
 
 .nav-link:hover {
-  color: var(--primary-color);
+  color: var(--color-primary-500);
 }
 
 .nav-link:hover::after {
@@ -77,19 +74,20 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: 1px solid var(--text-secondary);
+  border: 1px solid var(--color-surface-200);
   padding: 6px 18px;
-  border-radius: 20px;
+  border-radius: var(--radius-pill);
   opacity: 0.9;
 }
 
 .cv-link:hover {
-  border-color: var(--primary-color);
-  background-color: rgba(255, 107, 53, 0.1);
+  border-color: var(--color-primary-500);
+  background-color: rgba(74, 89, 72, 0.1);
+  color: var(--color-primary-500);
 }
 
 .cv-link::after {
-  display: none !important; /* Remove aquela barrinha laranja embaixo que os outros links têm */
+  display: none !important;
 }
 
 /* --- MENU MOBILE --- */
@@ -101,12 +99,13 @@
   border: none;
   cursor: pointer;
   padding: 5px;
+  z-index: 1001;
 }
 
 .mobile-menu-toggle span {
   width: 25px;
   height: 3px;
-  background-color: var(--text-primary);
+  background-color: var(--color-text-primary);
   transition: var(--transition);
   border-radius: 2px;
 }
@@ -133,21 +132,25 @@
     top: 100%;
     left: 0;
     right: 0;
-    background-color: var(--bg-secondary);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     flex-direction: column;
     padding: 1rem 0;
-    box-shadow: var(--shadow-lg);
-    border-top: 1px solid rgba(255, 107, 53, 0.2);
-    transform: translateY(-100%);
+    box-shadow: var(--shadow-smooth);
+    border-top: 1px solid rgba(255, 255, 255, 0.6);
+    transform: translateY(-10px);
     opacity: 0;
     visibility: hidden;
     transition: var(--transition);
+    pointer-events: none;
   }
 
   .nav.open {
     transform: translateY(0);
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
   }
 
   .nav-link {
@@ -156,10 +159,9 @@
     padding: 1rem;
   }
 
-  /* --- MÁGICA PARA O BOTÃO CV NO CELULAR --- */
   .nav-link.cv-link {
-    width: max-content; /* Em vez de 100%, pega só o tamanho da palavra */
-    margin: 10px auto 20px auto; /* Centraliza perfeitamente */
+    width: max-content;
+    margin: 10px auto 20px auto;
     padding: 10px 24px;
   }
 }

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700&display=swap');
+
 * {
   margin: 0;
   padding: 0;
@@ -5,23 +7,27 @@
 }
 
 :root {
-  --primary-color: #ff6b35;
-  --primary-dark: #ff4500;
-  --primary-light: #ff8c5a;
-  --secondary-color: #ffa366;
-  --accent-color: #ff8c42;
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --text-muted: #b0b0b0;
-  --bg-primary: #0a0a0a;
-  --bg-secondary: #1a1a1a;
-  --bg-tertiary: #252525;
-  --bg-card: #1f1f1f;
-  --border-color: #333333;
-  --shadow-sm: 0 2px 4px 0 rgba(255, 107, 53, 0.1);
-  --shadow-md: 0 4px 12px 0 rgba(255, 107, 53, 0.2);
-  --shadow-lg: 0 8px 24px 0 rgba(255, 107, 53, 0.3);
-  --shadow-glow: 0 0 20px rgba(255, 107, 53, 0.4);
+  /* New Palette */
+  --color-background: #E3E1DC;
+  --color-text-primary: #121212;
+  --color-surface-50: #F5F5F4;
+  --color-surface-100: #EAE8E4;
+  --color-surface-200: #D6D3CD;
+  --color-primary-400: #4a5948;
+  --color-primary-500: #374336;
+  --color-primary-600: #262f25;
+  --color-accent-400: #34d399;
+  --color-accent-500: #10b981;
+
+  /* Radius */
+  --radius-pill: 9999px;
+  --radius-card-lg: 24px;
+  --radius-card-sm: 16px;
+
+  /* Shadows */
+  --shadow-smooth: 0 4px 6px -1px rgba(38, 47, 37, 0.05), 0 10px 15px -3px rgba(38, 47, 37, 0.08), 0 20px 25px -5px rgba(38, 47, 37, 0.03);
+  --shadow-strong: 0 12px 24px -8px rgba(38, 47, 37, 0.2);
+
   --transition: all 0.3s ease;
 }
 
@@ -42,10 +48,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: var(--text-primary);
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-  background-attachment: fixed;
+  color: var(--color-text-primary);
+  background-color: var(--color-background);
   line-height: 1.6;
+}
+
+/* Textura (noise) */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Tipografia Headings */
+h1, h2, h3, h4, h5, h6, .section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
 
 .container {
@@ -64,7 +90,7 @@ body {
 .section-title {
   font-size: 2.5rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--color-text-primary);
   margin-bottom: 3rem;
   text-align: center;
   position: relative;
@@ -78,16 +104,16 @@ body {
   transform: translateX(-50%);
   width: 60px;
   height: 4px;
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-light));
-  border-radius: 2px;
-  box-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+  background: var(--color-primary-500);
+  border-radius: var(--radius-pill);
 }
 
 .btn {
   display: inline-block;
   padding: 12px 30px;
-  border-radius: 8px;
+  border-radius: var(--radius-pill);
   font-weight: 500;
+  font-family: 'Inter', sans-serif;
   text-decoration: none;
   transition: var(--transition);
   cursor: pointer;
@@ -96,29 +122,113 @@ body {
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  color: white;
-  box-shadow: var(--shadow-sm);
+  background-color: var(--color-primary-500);
+  color: #ffffff;
+  position: relative;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: 0 4px 10px rgba(38, 47, 37, 0.15);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--shadow-strong);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+  background-color: var(--color-primary-600);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md), var(--shadow-glow);
 }
 
+.btn-primary:hover::after { opacity: 0; }
+.btn-primary:hover::before { opacity: 1; }
+
 .btn-secondary {
-  background-color: transparent;
-  color: var(--primary-color);
-  border: 2px solid var(--primary-color);
-  box-shadow: 0 0 10px rgba(255, 107, 53, 0.2);
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  color: var(--color-text-primary);
+  box-shadow: none;
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
-  color: white;
-  box-shadow: var(--shadow-md), var(--shadow-glow);
-  border-color: var(--primary-light);
+  background: rgba(255, 255, 255, 0.65);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-smooth);
+}
+
+/* Efeito glass */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: var(--radius-card-sm);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+.glass-panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--shadow-smooth);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.glass-panel:hover {
+  transform: translateY(-2px);
+}
+.glass-panel:hover::after {
+  opacity: 1;
+}
+
+.glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.3) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: var(--radius-card-lg);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+.glass-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: var(--shadow-strong);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+.glass-card:hover {
+  transform: translateY(-4px);
+}
+.glass-card:hover::after {
+  opacity: 1;
 }
 
 @media (max-width: 768px) {
@@ -140,7 +250,6 @@ body {
    AJUSTES FINAIS DE ESPAÇAMENTO E MOBILE
    ========================================= */
 
-/* 1. Empurra a seção principal (Hero) para baixo, compensando a altura do Header fixo */
 #home {
   padding-top: 140px !important; 
 }
@@ -150,7 +259,6 @@ body {
     padding-top: 120px !important;
   }
   
-  /* 2. Reduz levemente os títulos das seções e permite quebra de linha para não cortarem no celular */
   .section-title {
     font-size: 1.8rem !important; 
     padding: 0 10px;
@@ -160,7 +268,7 @@ body {
 }
 
 /* =========================================
-   CONTENÇÃO DO BACKGROUND (CORTA O VAZAMENTO)
+   CONTENÇÃO DO BACKGROUND E SCROLLBAR
    ========================================= */
 
 .App {
@@ -171,11 +279,34 @@ body {
   min-height: 100vh;
 }
 
-/* Reduz um pouco a intensidade de qualquer elemento brilhante no fundo pelo celular */
-@media (max-width: 768px) {
-  #background, 
-  .background-container, 
-  .bg-gradient {
-    opacity: 0.6; /* Deixa o laranja um pouco mais suave para não ofuscar o texto */
-  }
+/* Scrollbar Customizado */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-200);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-400);
+}
+
+/* Utilitários de Gradiente de Texto */
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--color-primary-500), var(--color-accent-500));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--color-text-primary), var(--color-surface-200));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }

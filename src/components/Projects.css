@@ -1,57 +1,67 @@
 /* ============================================================
-   src/components/Projects.css - CARROSSEL MOBILE BLINDADO
+   src/components/Projects.css - CARROSSEL E CARDS REDESENHADOS
    ============================================================ */
 
-/* --- 0. TRAVA DE LARGURA (O QUE ESTAVA QUEBRANDO TUDO) --- */
 .projects.section {
-  display: block; /* Anula o flex do global.css que esticava a página */
-  padding-top: 100px; /* Mantém o espaçamento já que tiramos o flex */
+  display: block;
+  padding-top: 100px;
 }
 
 #projects .container {
-  min-width: 0; /* Regra de ouro: impede o carrossel de crescer infinitamente */
+  min-width: 0;
 }
 
-/* --- 1. ESTILO DOS FILTROS --- */
+/* --- 1. ESTILO DOS FILTROS (MAGIC MOVE) --- */
 .project-filters {
   display: flex;
-  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 3rem;
-  margin-top: 1rem;
-  width: 100%;
+  gap: 4px;
+  margin: 1rem auto 3rem auto;
+  width: max-content;
+  max-width: 100%;
+  padding: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  /* .glass-panel applied in JSX */
 }
+.project-filters::-webkit-scrollbar { display: none; }
 
 .filter-btn {
   background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 10px 24px;
+  color: var(--color-text-primary);
+  border: none;
+  padding: 10px 20px;
   border-radius: 100px;
   cursor: pointer;
   font-weight: 500;
   font-size: 0.95rem;
-  transition: all 0.3s ease;
+  transition: color 0.3s ease;
+  position: relative;
+  z-index: 1;
   outline: none;
+  white-space: nowrap;
 }
 
-.filter-btn:hover {
-  border-color: var(--primary-color);
-  color: var(--primary-color);
-  transform: translateY(-2px);
+.filter-btn-text {
+  position: relative;
+  z-index: 2;
 }
 
 .filter-btn.active {
-  background: var(--primary-color);
   color: #fff;
-  border-color: var(--primary-color);
-  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
   font-weight: 600;
 }
 
-/* --- 2. CARROSSEL E GRID --- */
+.filter-pill-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--color-primary-500);
+  border-radius: 100px;
+  z-index: 0;
+  box-shadow: 0 4px 12px rgba(55, 67, 54, 0.25);
+}
+
+/* --- 2. CARROSSEL --- */
 .carousel-wrapper {
   position: relative;
   width: 100%;
@@ -69,112 +79,159 @@
   scrollbar-width: none;
   width: 100%;
 }
+.projects-slider::-webkit-scrollbar { display: none; }
 
-.projects-slider::-webkit-scrollbar {
-  display: none;
-}
-
+/* --- 3. PROJECT CARD (GLASS + LAYERS) --- */
 .project-card {
   flex: 0 0 calc((100% - 4rem) / 3); 
   scroll-snap-align: start;
-  background: linear-gradient(135deg, var(--bg-card) 0%, var(--bg-tertiary) 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(255, 107, 53, 0.1);
-  overflow: hidden;
+  position: relative;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  padding: 0; /* Edge to edge image */
+  overflow: hidden;
+  transition: transform 0.4s ease;
+  /* .glass-card applied in JSX handles base bg and border */
 }
 
-/* --- 3. CONTEÚDO DO CARD --- */
+.clickable-card {
+  cursor: pointer;
+}
+
+/* Lift on hover */
+.project-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Dual gradient borders */
+.project-card::before, .project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 10;
+}
+
+.project-card::before {
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  -webkit-mask-image: linear-gradient(135deg, black, transparent 50%);
+  mask-image: linear-gradient(135deg, black, transparent 50%);
+}
+
+.project-card::after {
+  border: 1px solid var(--color-primary-500);
+  -webkit-mask-image: linear-gradient(135deg, transparent 50%, black);
+  mask-image: linear-gradient(135deg, transparent 50%, black);
+}
+
+.project-card:hover::before, .project-card:hover::after {
+  opacity: 1;
+}
+
+/* --- IMAGE & FLOATING ELEMENTS --- */
 .project-image-container {
+  position: relative;
   width: 100%;
   height: 220px;
   overflow: hidden;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .project-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition);
+  transition: transform 0.6s ease;
 }
 
 .project-card:hover .project-image {
   transform: scale(1.05);
 }
 
+.project-image-gradient {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Floating Glass Chip */
+.project-type-floating {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 2;
+}
+
+/* Floating Links */
+.project-links-floating {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  pointer-events: none;
+}
+
+.project-links-floating > * {
+  pointer-events: auto;
+}
+
+.project-link-glass {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121212;
+  font-size: 0.9rem;
+  transition: var(--transition);
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.project-link-glass:hover {
+  background: #ffffff;
+  color: var(--color-primary-600);
+  transform: scale(1.1);
+}
+
+/* --- CONTENT --- */
 .project-content {
-  padding: 1.8rem;
+  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
-}
-
-.project-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center; 
-  gap: 12px;
-  margin-bottom: 1rem;
-  min-height: 32px; 
-}
-
-.project-type {
-  font-size: 0.75rem;
-  color: var(--primary-color);
-  background: rgba(255, 107, 53, 0.1);
-  padding: 6px 12px; 
-  border-radius: 20px;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  line-height: 1.2;
-}
-
-.project-links {
-  display: flex;
-  align-items: center;
-  gap: 8px; 
-  flex-shrink: 0; 
-}
-
-.project-link {
-  color: var(--text-secondary);
-  font-size: 1.2rem; 
-  transition: var(--transition);
-  display: flex;
-  align-items: center;
-  justify-content: center; 
-  text-decoration: none;
-  width: 32px; 
-  height: 32px;
-  border-radius: 8px; 
-}
-
-.project-link.github {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.project-link:hover {
-  color: var(--primary-color);
-  background: rgba(255, 107, 53, 0.1);
-  border-color: rgba(255, 107, 53, 0.3);
-  transform: translateY(-2px);
+  position: relative;
+  z-index: 2;
 }
 
 .project-title {
-  font-size: 1.4rem;
-  color: var(--text-primary);
+  font-size: 1.3rem;
+  color: var(--color-text-primary);
   margin-bottom: 0.8rem;
   font-weight: 700;
   line-height: 1.3;
 }
 
 .project-description {
-  color: var(--text-secondary);
+  color: #555555;
   line-height: 1.6;
   margin-bottom: 1.5rem;
   font-size: 0.95rem;
@@ -184,25 +241,60 @@
 .project-technologies {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 6px;
   margin-top: auto;
 }
 
-.tech-tag {
-  font-size: 0.85rem;
-  color: #e2e8f0;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 6px 14px;
-  border-radius: 8px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(4px);
+.project-footer-link {
+  margin-top: 1.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-primary-600);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.project-footer-link .arrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-footer-link .arrow {
+  transform: translateX(4px);
+}
+
+/* --- SHARED GLASS CHIP STYLE --- */
+.glass-chip-small {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  color: var(--color-text-primary);
+  font-size: 11px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  transition: var(--transition);
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.02);
+}
+
+.glass-chip-small:hover {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--color-primary-400);
+  color: var(--color-primary-600);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(55, 67, 54, 0.15);
 }
 
 /* --- 4. BOTÕES DE SETA --- */
 .nav-btn {
-  background: rgba(26, 26, 26, 0.8);
-  border: 1px solid rgba(255, 107, 53, 0.3);
-  color: var(--primary-color);
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  color: var(--color-primary-600);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -214,27 +306,22 @@
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .nav-btn:hover {
-  background: var(--primary-color);
-  color: #fff;
+  background: #ffffff;
+  color: var(--color-primary-600);
   transform: translateY(-50%) scale(1.1);
-  box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+  box-shadow: 0 6px 20px rgba(55, 67, 54, 0.2);
 }
 
-.nav-btn.prev {
-  left: -25px;
-}
+.nav-btn.prev { left: -25px; }
+.nav-btn.next { right: -25px; }
 
-.nav-btn.next {
-  right: -25px;
-}
-
-/* --- 5. BOLINHAS (PAGINATION DOTS) --- */
+/* --- 5. BOLINHAS --- */
 .carousel-dots {
   display: flex;
   justify-content: center;
@@ -248,7 +335,7 @@
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.1);
   border: none;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -257,12 +344,12 @@
 }
 
 .dot.active {
-  background: #ffffff;
+  background: var(--color-primary-500);
   transform: scale(1.3);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  box-shadow: 0 0 10px rgba(55, 67, 54, 0.3);
 }
 
-/* --- 6. RESPONSIVIDADE BLINDADA --- */
+/* --- 6. RESPONSIVIDADE --- */
 @media (max-width: 1024px) {
   .project-card {
     flex: 0 0 calc((100% - 2rem) / 2);
@@ -270,29 +357,23 @@
 }
 
 @media (max-width: 768px) {
-  .project-filters { gap: 8px; }
+  .project-filters { 
+    justify-content: flex-start;
+    padding: 6px;
+    border-radius: 16px;
+  }
   .filter-btn { padding: 8px 16px; font-size: 0.85rem; }
   
   .projects-slider {
-    display: flex;
     gap: 1rem;
     padding: 10px 0 20px 0;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    width: 100%;
-    -webkit-overflow-scrolling: touch;
   }
   
   .project-card {
     flex: 0 0 85%;
     min-width: 85%;
     max-width: 85%;
-    scroll-snap-align: center;
-    box-sizing: border-box;
   }
   
-  .project-content { padding: 1.5rem; }
-  .project-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .project-links { margin-left: 0; width: 100%; justify-content: flex-start; }
   .nav-btn { display: none; }
 }

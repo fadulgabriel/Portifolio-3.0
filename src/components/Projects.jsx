@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { projects } from '../data/projects'
-import { FaExternalLinkAlt, FaGithub } from 'react-icons/fa'
+import { FaExternalLinkAlt, FaGithub, FaArrowRight } from 'react-icons/fa'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
 import './Projects.css'
 
@@ -14,6 +14,7 @@ const Projects = () => {
   // State para guardar quais os cartões que estão visíveis e acender as bolinhas
   const [visibleIndices, setVisibleIndices] = useState([0, 1, 2])
 
+  // Filtro 100% dinâmico extraindo de data/projects.js
   const projectTypes = ['Todos', ...new Set(projects.map((p) => p.type))]
 
   const filteredProjects =
@@ -27,7 +28,7 @@ const Projects = () => {
       const card = scrollRef.current.querySelector('.project-card')
       if (card) {
         const cardWidth = card.offsetWidth
-        const gap = 32 // O espaço (gap) definido no seu CSS
+        const gap = 32
         const scrollAmount = cardWidth + gap
 
         const { scrollLeft } = scrollRef.current
@@ -89,8 +90,9 @@ const Projects = () => {
           Projetos Realizados
         </motion.h2>
 
+        {/* --- FILTRO MAGIC MOVE (Segmented Control) --- */}
         <motion.div
-          className="project-filters"
+          className="project-filters glass-panel"
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.2 }}
@@ -104,7 +106,14 @@ const Projects = () => {
                 if(scrollRef.current) scrollRef.current.scrollTo({left: 0, behavior: 'smooth'})
               }}
             >
-              {type}
+              {filter === type && (
+                <motion.div
+                  layoutId="filter-pill"
+                  className="filter-pill-bg"
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                />
+              )}
+              <span className="filter-btn-text">{type}</span>
             </button>
           ))}
         </motion.div>
@@ -115,69 +124,75 @@ const Projects = () => {
           </button>
 
           <div className="projects-slider" ref={scrollRef} onScroll={handleScroll}>
-            {filteredProjects.map((project) => (
-              <motion.div
-                key={project.id}
-                className="project-card"
-                initial={{ opacity: 0.2, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ 
-                  root: scrollRef, 
-                  amount: 0.7, 
-                  once: false 
-                }}
-                transition={{ duration: 0.4 }}
-              >
+            <AnimatePresence mode="popLayout">
+              {filteredProjects.map((project, index) => (
+                <motion.div
+                  layout
+                  key={project.id}
+                  className="project-card glass-card clickable-card"
+                  onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
+                  initial={{ opacity: 0.2, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ 
+                    root: scrollRef, 
+                    amount: 0.1, 
+                    once: true 
+                  }}
+                  transition={{ duration: 0.4, delay: Math.min(index * 0.1, 0.4) }}
+                >
+                {/* --- HEADER EM CAMADAS (IMAGEM + OVERLAYS) --- */}
                 <div className="project-image-container">
                   <img
                     src={project.image || '/api/placeholder/400/220'}
                     alt={project.title}
                     className="project-image"
+                    loading="lazy"
                   />
+                  <div className="project-image-gradient"></div>
+                  
+                  <span className="project-type-floating glass-chip-small">{project.type}</span>
+                  
+                  <div className="project-links-floating">
+                    {project.githubUrl && project.githubUrl !== '#' && (
+                      <a 
+                        href={project.githubUrl} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="project-link-glass"
+                        aria-label="Ver código no GitHub"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <FaGithub size={14} />
+                      </a>
+                    )}
+                    {project.link && (
+                      <span className="glass-chip-small view-project-chip">
+                        Ver projeto ↗
+                      </span>
+                    )}
+                  </div>
                 </div>
 
+                {/* --- CONTEÚDO DO CARD --- */}
                 <div className="project-content">
-                  <div className="project-header">
-                    <span className="project-type">{project.type}</span>
-                    <div className="project-links">
-                      
-                      {/* --- BOTÃO DO GITHUB COM A CLASSE EXACTA --- */}
-                      {project.githubUrl && project.githubUrl !== '#' && (
-                        <a 
-                          href={project.githubUrl} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="project-link github"
-                        >
-                          <FaGithub />
-                        </a>
-                      )}
-                      
-                      {/* --- BOTÃO DE LINK EXTERNO --- */}
-                      {project.link && (
-                        <a 
-                          href={project.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          className="project-link"
-                        >
-                          <FaExternalLinkAlt />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-
                   <h3 className="project-title">{project.title}</h3>
                   <p className="project-description">{project.description}</p>
 
                   <div className="project-technologies">
-                    {project.technologies.map((tech, techIndex) => (
-                      <span key={techIndex} className="tech-tag">{tech}</span>
+                    {project.technologies?.map((tech, techIndex) => (
+                      <span key={techIndex} className="glass-chip-small">{tech}</span>
                     ))}
                   </div>
+
+                  {project.link && (
+                    <div className="project-footer-link">
+                      Ver projeto <span className="arrow"><FaArrowRight /></span>
+                    </div>
+                  )}
                 </div>
               </motion.div>
             ))}
+            </AnimatePresence>
           </div>
 
           <button className="nav-btn next" onClick={() => scroll('right')} aria-label="Próximo">
