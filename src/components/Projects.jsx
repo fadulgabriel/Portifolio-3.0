@@ -3,6 +3,7 @@ import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { projects } from '../data/projects'
 import { FaExternalLinkAlt, FaGithub, FaArrowRight } from 'react-icons/fa'
 import { FiChevronLeft, FiChevronRight } from 'react-icons/fi'
+import ProjectDetailModal from './ProjectDetailModal'
 import './Projects.css'
 
 const Projects = () => {
@@ -10,17 +11,18 @@ const Projects = () => {
   const scrollRef = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-100px' })
   const [filter, setFilter] = useState('Todos')
+  const [activeProject, setActiveProject] = useState(null)
   
   // State para guardar quais os cartões que estão visíveis e acender as bolinhas
   const [visibleIndices, setVisibleIndices] = useState([0, 1, 2])
 
   // Filtro 100% dinâmico extraindo de data/projects.js
-  const projectTypes = ['Todos', ...new Set(projects.map((p) => p.type))]
+  const projectTypes = ['Todos', ...new Set(projects.map((p) => p.category))]
 
   const filteredProjects =
     filter === 'Todos'
       ? projects
-      : projects.filter((project) => project.type === filter)
+      : projects.filter((project) => project.category === filter)
 
   // Função para as setas do carrossel
   const scroll = (direction) => {
@@ -118,7 +120,12 @@ const Projects = () => {
           ))}
         </motion.div>
 
-        <div className="carousel-wrapper">
+        <motion.div 
+          className="carousel-wrapper"
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: 0.3 }}
+        >
           <button className="nav-btn prev" onClick={() => scroll('left')} aria-label="Anterior">
             <FiChevronLeft size={30} strokeWidth={1.5} />
           </button>
@@ -128,29 +135,25 @@ const Projects = () => {
               {filteredProjects.map((project, index) => (
                 <motion.div
                   layout
-                  key={project.id}
+                  key={project.slug}
                   className="project-card glass-card clickable-card"
-                  onClick={() => project.link && window.open(project.link, '_blank', 'noopener,noreferrer')}
-                  initial={{ opacity: 0.2, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ 
-                    root: scrollRef, 
-                    amount: 0.1, 
-                    once: true 
-                  }}
-                  transition={{ duration: 0.4, delay: Math.min(index * 0.1, 0.4) }}
+                  onClick={() => setActiveProject(project.slug)}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                  transition={{ duration: 0.2 }}
                 >
                 {/* --- HEADER EM CAMADAS (IMAGEM + OVERLAYS) --- */}
                 <div className="project-image-container">
                   <img
-                    src={project.image || '/api/placeholder/400/220'}
+                    src={project.coverImage || '/api/placeholder/400/220'}
                     alt={project.title}
                     className="project-image"
                     loading="lazy"
                   />
                   <div className="project-image-gradient"></div>
                   
-                  <span className="project-type-floating glass-chip-small">{project.type}</span>
+                  <span className="project-type-floating glass-chip-small">{project.category}</span>
                   
                   <div className="project-links-floating">
                     {project.githubUrl && project.githubUrl !== '#' && (
@@ -165,30 +168,26 @@ const Projects = () => {
                         <FaGithub size={14} />
                       </a>
                     )}
-                    {project.link && (
-                      <span className="glass-chip-small view-project-chip">
-                        Ver projeto ↗
-                      </span>
-                    )}
+                    <span className="glass-chip-small view-project-chip">
+                      Ver projeto ↗
+                    </span>
                   </div>
                 </div>
 
                 {/* --- CONTEÚDO DO CARD --- */}
                 <div className="project-content">
                   <h3 className="project-title">{project.title}</h3>
-                  <p className="project-description">{project.description}</p>
+                  <p className="project-description">{project.hook}</p>
 
                   <div className="project-technologies">
-                    {project.technologies?.map((tech, techIndex) => (
+                    {project.tags?.map((tech, techIndex) => (
                       <span key={techIndex} className="glass-chip-small">{tech}</span>
                     ))}
                   </div>
 
-                  {project.link && (
-                    <div className="project-footer-link">
-                      Ver projeto <span className="arrow"><FaArrowRight /></span>
-                    </div>
-                  )}
+                  <div className="project-footer-link">
+                    Ver projeto <span className="arrow"><FaArrowRight /></span>
+                  </div>
                 </div>
               </motion.div>
             ))}
@@ -198,7 +197,7 @@ const Projects = () => {
           <button className="nav-btn next" onClick={() => scroll('right')} aria-label="Próximo">
             <FiChevronRight size={30} strokeWidth={1.5} />
           </button>
-        </div>
+        </motion.div>
 
         {/* --- BOLINHAS DE PAGINAÇÃO --- */}
         <div className="carousel-dots">
@@ -212,6 +211,7 @@ const Projects = () => {
           ))}
         </div>
 
+        <ProjectDetailModal slug={activeProject} onClose={() => setActiveProject(null)} />
       </div>
     </section>
   )

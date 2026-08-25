@@ -1,0 +1,79 @@
+.project-detail-modal__backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(18, 18, 18, 0.6);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  z-index: 1000;
+}
+
+.project-detail-modal__content {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 28px;
+  background: #E3E1DC; /* Stone */
+  box-shadow: 0 20px 60px rgba(18, 18, 18, 0.25);
+  scrollbar-width: thin;
+  scrollbar-color: rgba(55, 67, 54, 0.3) transparent;
+}
+
+.project-detail-modal__content::-webkit-scrollbar {
+  width: 8px;
+}
+.project-detail-modal__content::-webkit-scrollbar-track {
+  background: transparent;
+}
+.project-detail-modal__content::-webkit-scrollbar-thumb {
+  background-color: rgba(55, 67, 54, 0.3);
+  border-radius: 20px;
+}
+
+.project-detail-modal__close {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121212;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+.project-detail-modal__close:hover {
+  background: rgba(255,255,255,0.9);
+  transform: scale(1.05);
+}
+.project-detail-modal__close:focus-visible {
+  outline: 2px solid var(--color-primary-600);
+  outline-offset: 2px;
+}
+
+@media (max-width: 640px) {
+  .project-detail-modal__backdrop { padding: 0; }
+  .project-detail-modal__content {
+    max-height: 100vh;
+    height: 100%;
+    border-radius: 0;
+  }
+  .project-detail-modal__close {
+    top: 1rem;
+    right: 1rem;
+  }
+}
