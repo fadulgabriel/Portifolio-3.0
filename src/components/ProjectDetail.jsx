@@ -13,7 +13,7 @@ function renderSectionText(text) {
   ));
 }
 
-export default function ProjectDetail({ data, onClose }) {
+export default function ProjectDetail({ data, onClose, onImageClick }) {
   const prefersReducedMotion = useReducedMotion();
 
   const reveal = {
@@ -45,12 +45,21 @@ export default function ProjectDetail({ data, onClose }) {
         </div>
       </header>
 
+
+
       {data.gallery?.length > 0 && (
         <section className="project-detail__gallery">
           <div className="project-detail__gallery-track">
             {data.gallery.map((src) => (
               <div key={src} className="project-detail__gallery-slide">
-                <img src={src} alt="" className="project-detail__gallery-img" loading="lazy" />
+                <img
+                  src={src}
+                  alt=""
+                  className="project-detail__gallery-img"
+                  loading="lazy"
+                  onClick={() => onImageClick?.(src)}
+                  style={{ cursor: 'zoom-in' }}
+                />
               </div>
             ))}
           </div>
@@ -74,10 +83,10 @@ export default function ProjectDetail({ data, onClose }) {
           suas próprias seções (nome e quantidade), não é um dicionário fixo. */}
       {data.sections?.length > 0 && (
         <div className="project-detail__body">
-          {data.sections.map(({ eyebrow, text, cta, image }, index) => {
+          {data.sections.map(({ eyebrow, text, cta, image, images }, index) => {
             const isClosing = !eyebrow;
             return (
-                <motion.section
+              <motion.section
                 key={eyebrow || `closing-${index}`}
                 className="project-detail__section"
                 initial="hidden"
@@ -105,7 +114,27 @@ export default function ProjectDetail({ data, onClose }) {
                     alt=""
                     className="project-detail__section-image"
                     loading="lazy"
+                    onClick={() => onImageClick?.(image)}
+                    style={{ cursor: 'zoom-in' }}
                   />
+                )}
+                {images?.length > 0 && (
+                  <div className="project-detail__section-carousel">
+                    <div className="project-detail__gallery-track">
+                      {images.map(src => (
+                        <div key={src} className="project-detail__gallery-slide project-detail__section-carousel-slide">
+                          <img
+                            src={src}
+                            alt=""
+                            className="project-detail__gallery-img project-detail__section-carousel-img"
+                            loading="lazy"
+                            onClick={() => onImageClick?.(src)}
+                            style={{ cursor: 'zoom-in' }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 )}
               </motion.section>
             );
@@ -149,6 +178,23 @@ export default function ProjectDetail({ data, onClose }) {
             Ver código no GitHub ↗
           </a>
         </div>
+      )}
+
+      {data.actions?.length > 0 && (
+        <section className="project-detail__actions">
+          {data.actions.map((action, i) => (
+            <a
+              key={i}
+              href={action.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-detail__section-cta"
+              style={{ marginTop: 0 }}
+            >
+              {action.label}
+            </a>
+          ))}
+        </section>
       )}
 
       <button type="button" className="project-detail__cta" onClick={onClose}>

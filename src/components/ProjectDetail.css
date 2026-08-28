@@ -114,7 +114,7 @@
 }
 
 .project-detail__metric-value {
-  font-size: clamp(1.5rem, 6vw, 3rem);
+  font-size: clamp(1.1rem, 5.5vw, 3rem);
   font-weight: 700;
   color: #10b981; /* Emerald, the ONLY appearance in the page */
   line-height: 1;
@@ -195,7 +195,29 @@
   box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
+.project-detail__section-carousel {
+  margin: 3rem 0 1rem 0;
+}
 
+.project-detail__section-carousel-slide {
+  background: transparent;
+}
+
+.project-detail__section-carousel-img {
+  height: 240px;
+}
+
+/* --- ACTIONS --- */
+.project-detail__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0 3rem 4rem 3rem;
+  justify-content: center;
+  max-width: 900px;
+  margin: 0 auto;
+  width: 100%;
+}
 
 /* --- GALLERY --- */
 .project-detail__gallery {

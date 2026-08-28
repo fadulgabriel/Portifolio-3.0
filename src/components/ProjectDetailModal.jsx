@@ -1,4 +1,4 @@
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
 import ProjectDetail from './ProjectDetail';
 import { getProjectBySlug } from '../data/projects';
@@ -9,6 +9,7 @@ export default function ProjectDetailModal({ slug, onClose }) {
   const modalRef = useRef(null);
   const closeButtonRef = useRef(null);
   const triggerElementRef = useRef(null);
+  const [lightboxSrc, setLightboxSrc] = useState(null);
 
   const data = slug ? getProjectBySlug(slug) : null;
 
@@ -30,6 +31,10 @@ export default function ProjectDetailModal({ slug, onClose }) {
 
   const handleKeyDown = useCallback((e) => {
     if (e.key === 'Escape') {
+      if (lightboxSrc) {
+        setLightboxSrc(null);
+        return;
+      }
       onClose();
       return;
     }
@@ -48,7 +53,7 @@ export default function ProjectDetailModal({ slug, onClose }) {
         first.focus();
       }
     }
-  }, [onClose]);
+  }, [onClose, lightboxSrc]);
 
   if (!data) return null;
 
@@ -85,8 +90,34 @@ export default function ProjectDetailModal({ slug, onClose }) {
             >
               ✕
             </button>
-            <ProjectDetail data={data} onClose={onClose} />
+            <ProjectDetail data={data} onClose={onClose} onImageClick={setLightboxSrc} />
           </motion.div>
+        </motion.div>
+      )}
+
+      {/* LIGHTBOX RENDERIZADO NO MESMO NÍVEL (COM Z-INDEX MAIOR) */}
+      {lightboxSrc && (
+        <motion.div
+          className="project-detail-lightbox"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setLightboxSrc(null)}
+        >
+          <button
+            type="button"
+            className="project-detail-lightbox__close"
+            onClick={() => setLightboxSrc(null)}
+            aria-label="Fechar imagem"
+          >
+            ✕
+          </button>
+          <img
+            src={lightboxSrc}
+            alt=""
+            className="project-detail-lightbox__img"
+            onClick={(e) => e.stopPropagation()}
+          />
         </motion.div>
       )}
     </AnimatePresence>

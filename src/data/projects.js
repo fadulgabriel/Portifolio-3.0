@@ -14,9 +14,9 @@ export const projects = [
     slug: 'sbjr-2026',
     category: 'Negócios',
     title: 'Sábado Júnior 2026',
-    hook: 'Como fechei mais de 20 parcerias empresariais e desenvolvi uma inovação pra um evento de mais de 800 pessoas.',
+    hook: 'Como fechei mais de 20 parcerias empresariais e desenvolvi uma inovação pra um evento de +800 pessoas.',
     coverImage: '/images/projects/sbjr-2026-cover.png',
-    tags: ['Liderança de Equipe', 'Gestão de Parcerias', 'Pipefy', 'Desenvolvimento de Produto'],
+    tags: ['Gestão de Parcerias', 'Liderança de Equipe', 'Pipefy', 'Desenvolvimento de Produto'],
     metrics: [
       { value: '20+', label: 'Empresas Parceiras' },
       { value: '4,37', label: 'CSAT' },
@@ -68,26 +68,102 @@ export const projects = [
     ],
   },
   {
-    slug: 'seminario-estocasticos',
+    slug: 'mgb-processos-estocasticos',
     category: 'Estatística',
-    title: 'Seminário de Processos Estocásticos',
-    hook: 'TODO',
-    tags: [],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
-    coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
+    title: 'Simulação de Ações com Movimento Geométrico Browniano',
+    hook: 'Simulação de Monte Carlo pra projetar preços de ações reais (VALE3 e ITUB4) usando Movimento Geométrico Browniano.',
+    coverImage: '/images/projects/mgb-cover.png',
+    tags: ['Estocástico', 'Movimento Browniano', 'R Shiny', 'Backtesting'],
+    actions: [
+      { label: 'Ver relatório completo ↗', url: 'https://drive.google.com/file/d/1Fbs3xENExeqI5gSmY4wU9ObSXcB_ELj5/view?usp=share_link' },
+      { label: 'Ver simulador MGB ↗', url: 'https://fadulgabriel.shinyapps.io/simulador-mgb/' },
+    ],
+    sections: [
+      {
+        eyebrow: 'Contexto',
+        text: 'Apresentei um **seminário** na disciplina de **Processos Estocásticos**, na UnB, que teve como tema o Movimento Geométrico Browniano (MGB). Focamos na **aplicação desse modelo** para descrever como se comportam os **preços de ativos na bolsa** de valores.',
+      },
+      {
+        eyebrow: 'Motivação prática',
+        text: 'Um processo estocástico como esse carrega uma propriedade central: o **valor de amanhã depende só do valor de hoje**, não do caminho percorrido até ali. Aplicada à bolsa, essa ideia permite tratar o preço de uma ação como algo que já carrega, a cada instante, toda a informação relevante pra estimar, dentro de uma margem de incerteza, o que vem a seguir.',
+      },
+      {
+        eyebrow: 'Metodologia',
+        text: 'Duas ações reais foram selecionadas: **VALE3** (mineração) e **ITUB4** (bancário). A partir do **histórico real de preços** de cada uma, **estimamos dois parâmetros** que resumem o comportamento da ação: a tendência **média de crescimento** e a **volatilidade**, o quanto o preço costuma oscilar no dia a day. Todo esse processo, incluindo as demonstrações matemáticas por trás dos estimadores usados, está **detalhado no relatório completo**.',
+        images: [
+          '/images/projects/pagina-16-15.jpg',
+          '/images/projects/pagina-17-16.jpg',
+          '/images/projects/pagina-18-17.jpg',
+        ],
+      },
+      {
+        eyebrow: 'O Simulador MGB',
+        text: 'Desenvolvi um **dashboard em R Shiny**: o Simulador MGB, uma ferramenta interativa que roda esse processo inteiro de forma visual. Basta **selecionar o período** desejado, e a ferramenta calcula, a partir do histórico de preços, os parâmetros de tendência e volatilidade daquele ativo. Com base neles, ela roda uma **simulação de Monte Carlo**: gera centenas de **trajetórias futuras** de preço, cada uma um cenário aleatório igualmente possível dentro do modelo, formando uma faixa de resultados plausíveis em vez de uma previsão única.',
+        images: [
+          '/images/projects/mgb-1.png',
+          '/images/projects/mgb-2.png',
+        ],
+      },
+      {
+        eyebrow: 'Suposição por trás',
+        text: 'O modelo depende de uma hipótese: os **retornos diários** de uma ação **seguem uma distribuição normal**, a curva em sino onde variações pequenas são comuns e extremas são raras. É essa suposição que gera, a cada passo da simulação. O **dashboard testa isso** na prática pelo teste de **Shapiro-Wilk**, verificando se o período selecionado realmente se comporta como uma normal antes de confiar na simulação.',
+        image: '/images/projects/mgb-dist.png',
+      },
+      {
+        eyebrow: 'Backtesting',
+        text: 'O dashboard também faz o **backtesting do modelo**: uma forma de **prever o passado** pra testar se a **previsão bate** com o que já se sabe **que aconteceu**. A ferramenta separa o histórico em dois pedaços, estima os parâmetros usando só a parte mais antiga, e simula as trajetórias futuras a partir dali, como se estivesse no passado e sem saber o que vinha depois. Comparando essa projeção com o que já é conhecido, é possível verificar se o **modelo teria sido confiável** na prática, e não só na teoria.',
+        image: '/images/projects/mgb-back.png',
+      },
+    ],
   },
   {
     slug: 'pipoca-experimento',
     category: 'Estatística',
     title: 'Qualidade do Cozimento de Milho de Pipoca',
-    hook: 'TODO',
-    tags: [],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
+    hook: 'Um delineamento experimental comparando grãos não estourados entre três marcas de pipoca de preços bem diferentes, do comum ao super premium.',
     coverImage: 'https://images.unsplash.com/photo-1585647347384-2593bc35786b?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
+    tags: ['Delineamento de Experimentos', 'ANOVA', 'R', 'Teste de Hipóteses'],
+    actions: [
+      { label: 'Ver relatório completo ↗', url: 'https://drive.google.com/file/d/1FEm2NfNO34lStG4_5kXsprnGEQFfcRNR/view?usp=share_link' },
+    ],
+    sections: [
+      {
+        eyebrow: 'Contexto',
+        text: 'O projeto surgiu a partir da **disciplina de Delineamento e Análise de Experimentos**, do curso de Estatística da UnB, ministrada pelo professor George von Borries. Foi nos proposto um **experimento real** pra simular, na prática, como se conduz um delineamento controlado do início ao fim.',
+      },
+      {
+        eyebrow: 'Objetivo',
+        text: 'Comparar a quantidade de **grãos não estourados entre três marcas de pipoca** de faixas de preço diferentes.',
+      },
+      {
+        eyebrow: 'Protocolo de Execução',
+        text: 'Comparamos três marcas: Comum, Premium e Super Premium, usando **5 repetições** de **25g de milho** por marca, cozidas na mesma **pipoqueira elétrica**, com **ordem sorteada** entre execuções e tempo de resfriamento fixo entre elas pra não viesar o resultado.',
+        image: '/images/projects/pagina-04-marcas-05.jpg',
+      },
+      {
+        eyebrow: 'Etapa I',
+        text: 'Primeiro testamos apenas o efeito da marca, com **tempo de cozimento fixo** em 4 minutos. Os dados atenderam a todos os pressupostos estatísticos: normalidade e variância constante, o que nos permitiu rodar uma **ANOVA** direta para comparar as médias das três marcas.',
+        image: '/images/projects/pagina-08-etapa1-09.jpg',
+      },
+      {
+        eyebrow: 'Etapa II',
+        text: 'Na segunda etapa, cruzamos marca com **diferentes tempos de cozimento** (2, 3 e 4 minutos). Dessa vez os dados **não atenderam ao pressuposto** de normalidade exigido, então testamos **transformações nos dados** até encontrar a que menos violava esse pressuposto, e conduzimos a análise nessa escala ajustada.',
+        image: '/images/projects/pagina-20-qqplot-21.jpg',
+      },
+      {
+        eyebrow: 'Resultados',
+        text: 'Na Etapa I, **nenhuma diferença** estatística entre as marcas: a mais barata estourou tão bem quanto a que custa 6x mais. Na Etapa II, o tempo de cozimento determinou o resultado: a partir de 3 minutos a diferença entre as marcas praticamente desaparecia. Na prática a **pipoca cara não garante mais grãos estourados**.',
+        images: [
+          '/images/projects/pagina-12-boxplot-etapa1-13.jpg',
+          '/images/projects/pagina-19-boxplot-etapa2-20.jpg',
+          '/images/projects/pagina-21-anova-tabela-22.jpg',
+        ],
+      },
+      {
+        eyebrow: null,
+        text: 'O estudo mediu a qualidade **apenas pelo estouro dos grãos**, não avaliamos sabor, textura ou tamanho. Durante a execução, inclusive, notamos que os grãos da marca mais cara pareciam maiores, uma percepção que não chegamos a medir e que **fica como extensão** dessa pesquisa.',
+      },
+    ],
   },
   {
     slug: 'prova-multivariada-cedulas',
@@ -101,28 +177,69 @@ export const projects = [
     githubUrl: '#'
   },
   {
-    slug: 'instat-diretoria-negocios',
+    slug: 'estat-diretoria-negocios',
     category: 'Negócios',
-    title: 'Diretoria de Negócios na Instat',
-    hook: 'TODO',
-    tags: ['Liderança', 'Gestão de time', 'Negócios'],
-    metrics: [],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
-    coverImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
-  },
-  {
-    slug: 'r2-email-marketing',
-    category: 'Negócios',
-    title: 'Email marketing na R2 Entretenimentos',
-    hook: 'TODO',
-    tags: ['CRM', 'Segmentação', 'Email marketing'],
-    metrics: [],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
-    coverImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
+    title: 'Diretoria de Negócios ESTAT',
+    hook: 'Como levei a ESTAT ao maior faturamento da sua história, unificando Vendas e Marketing e reestruturando CRM, tráfego e time comercial em um ano de gestão.',
+    coverImage: '/images/projects/estat-diretoria-negocios-cover.jpg',
+    tags: ['Liderança de Equipe', 'Vendas & Marketing', 'R Shiny', 'Tráfego Pago'],
+    metrics: [
+      { value: 'R$270 mil', label: 'Faturamento' },
+      { value: '70+', label: 'Projetos' },
+      { value: '16%', label: 'Conversão' },
+    ],
+    sections: [
+      {
+        eyebrow: 'Contexto',
+        text: 'A ESTAT é a **maior empresa júnior de estatística do Brasil**, ligada à Universidade de Brasília. É uma consultoria estatística gerida inteiramente por estudantes de graduação, aplicando em **projetos reais** o que se aprende em sala.',
+      },
+      {
+        eyebrow: 'Diagnóstico dos Problemas',
+        text: 'Identifiquei algumas falhas principais: sem rotina de cobrança comercial, poucas métricas de desempenho, e um CRM desorganizado. **Propus soluções** numa carta de planejamento completa, fui sabatinado e eleito **Diretor de Negócios** de 2025.\n\nA mudança mais estrutural foi **unir Vendas e Marketing**, até então áreas separadas. Responsável pela **captação de leads**, conversão comercial e trazer **bons projetos** pra executar.',
+        image: '/images/projects/estat-diretoria-negocios-discurso.jpg',
+      },
+      {
+        eyebrow: 'Reconstrução do CRM',
+        text: 'Implementei um **CRM novo** no Pipefy, com integrações automáticas que reduziam o tempo de alocação de vendedores a cada lead novo. Desenvolvi também um **dashboard em R Shiny** pra acompanhar as métricas de forma visual e prática.',
+        cta: { label: 'Ver dashboard ↗', url: 'http://fadulgabriel.shinyapps.io/metricas_pipefy' },
+        images: [
+          '/images/projects/estat-diretoria-negocios-dashboard-1.jpg',
+          '/images/projects/estat-diretoria-negocios-dashboard-2.jpg',
+          '/images/projects/estat-diretoria-negocios-dashboard-3.jpg',
+        ],
+      },
+      {
+        eyebrow: 'Gestão de Tráfego',
+        text: 'Assumi a operação semanal do **Google Ads**, com apoio de uma mentoria especializada. O canal virou a maior fonte de leads da empresa, com **ROI de mais de 100%**. Pra reduzir a dependência de um único canal, expandi também pro **LinkedIn Ads**, com planejamento de estruturar melhor na gestão seguinte.',
+      },
+      {
+        eyebrow: 'Transição de mercado',
+        text: 'O "boom" da **IA vinha reduzindo a demanda pelas análises estatísticas** acadêmicas, nosso principal produto. Lemos esse movimento e migramos o foco pra projetos de ticket médio maior e que envolviam mais as áreas de Machine Learning e ciência de dados, vendidos principalmente pra **empresas**.\n\n**Reestruturei o site** com uma equipe terceirizada como parte do **reposicionamento de marca**, com técnicas de venda que passassem mais confiança ao novo público. Deu certo: chegamos a **apresentar o case** num pitch pra outras Empresas Juniores.',
+        image: '/images/projects/estat-diretoria-negocios-pitch.png',
+      },
+      {
+        eyebrow: 'Liderança',
+        text: 'Com a rotação semestral dos membros entre diferentes áreas da empresa, tive um **time de 7 pessoas** no primeiro semestre e 5 no segundo. Muitos eram **novos em vendas** e na própria estatística, então acompanhei cada um de perto, ensinando ao mesmo tempo técnica comercial e o **produto estatístico** que estávamos vendendo.',
+        image: '/images/projects/estat-diretoria-negocios-time.jpg',
+      },
+      {
+        eyebrow: 'Resultados',
+        text: 'Alcançamos o **recorde de faturamento** e de mais **projetos vendidos** na história da ESTAT: **R$270 mil faturados com +70 projetos**. O ticket médio cresceu 40%, chegando aos R$3.500, e a conversão saltou de 6% para 16%, puxada pela qualificação do tráfego e pelo acompanhamento próximo de cada vendedor aos leads.',
+      },
+      {
+        eyebrow: 'Aprendizados',
+        text: 'Desenvolvi bastante **minha oratória** e a capacidade de **apresentar dados** de forma estratégica. Também passei a valorizar processos bem definidos, onde todos sabem como fazer cada coisa. No lado técnico, aprendi a **diagnosticar o problema do cliente** para depois oferecê-lo a melhor solução estatística.',
+      },
+      {
+        eyebrow: null,
+        text: 'Foi, sem dúvida, o **maior desafio que já enfrentei** até então, e em nenhum case caberia tudo que aprendi com as **pessoas** que conheci pela **ESTAT**...',
+      },
+    ],
+    gallery: [
+      '/images/projects/estat-diretoria-negocios-1.jpg',
+      '/images/projects/estat-diretoria-negocios-2.jpg',
+      '/images/projects/estat-diretoria-negocios-3.jpg',
+    ],
   },
   {
     slug: 'amostragem-carros-chineses',
