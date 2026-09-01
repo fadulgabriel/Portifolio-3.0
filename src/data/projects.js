@@ -1,17 +1,42 @@
 export const projects = [
   {
-    slug: 'descritiva-loja-roupas',
+    slug: 'estudo-descritivo-varejo',
+    order: 6,
     category: 'Estatística',
-    title: 'Diagnóstico de Vendas de Roupas',
-    hook: 'Estudo descritivo sobre as vendas de uma loja de roupas, explorando a sazonalidade do faturamento e as principais tendências de compra e comportamento dos clientes.',
-    tags: ['R', 'LateX', 'Análise Descritiva'],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
+    title: 'Estudo Descritivo Vendas de Roupas',
+    hook: 'Análise estatística descritiva de vendas e devoluções no setor de vestuário.',
     coverImage: 'https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
+    tags: ['Estatística Descritiva', 'R', 'LaTeX', 'Análise de Dados'],
+    actions: [
+      { label: 'Ver relatório completo ↗', url: 'https://drive.google.com/file/d/1fNUpNxkvfCgcJE0_gVCSeZZpS61MPRo4/view?usp=share_link' },
+    ],
+    sections: [
+      {
+        eyebrow: 'Contexto',
+        text: 'Para ingressar na ESTAT (Empresa Júnior de Estatística da UnB), o **processo seletivo exigia** atuar como consultor em um **projeto simulado**. Recebi um banco de dados fictício de **vendas e devoluções de uma loja de roupas** para realizar um estudo estatístico descritivo completo, indo da **limpeza dos dados brutos** até a **elaboração de um relatório executivo** final.',
+      },
+      {
+        eyebrow: 'Análises',
+        text: 'Direcionei as técnicas estatísticas para **responder problemas reais de negócio**. O cálculo do **coeficiente V de Cramer**, por exemplo, foi utilizado para provar que a **preferência de cor não dependia do gênero** do consumidor. Já a **correlação de Pearson** serviu para medir como o **preço da peça ditava a percepção de qualidade** e a satisfação do cliente.',
+        image: '/images/projects/roupas-1.png',
+      },
+      {
+        eyebrow: 'Relatório e Entregas',
+        text: 'Para garantir uma entrega com padrão de mercado, diagramei o **relatório utilizando LaTeX através do Overleaf**. O estudo conseguiu detalhar desde a sazonalidade do faturamento da loja ao longo dos meses até a identificação de quais marcas apresentavam as maiores taxas de devolução por defeito.',
+        images: [
+          '/images/projects/roupas-2.png',
+          '/images/projects/roupas-3.png',
+        ],
+      },
+      {
+        eyebrow: 'Aprendizados',
+        text: 'Esse foi meu **projeto de entrada** no mundo da estatística e de dados. A principal lição que ficou foi a **necessidade de "criar intimidade" com os dados** antes de tentar qualquer modelagem complexa. Aprendi a **valorizar uma estatística descritiva** bem feita, entendendo que é preciso primeiro **investigar a base** e **mergulhar no contexto** do problema para, só então, utilizar ferramentas estatísticas mais robustas.',
+      },
+    ],
   },
   {
     slug: 'sbjr-2026',
+    order: 1,
     category: 'Negócios',
     title: 'Sábado Júnior 2026',
     hook: 'Como fechei mais de 20 parcerias empresariais e desenvolvi uma inovação pra um evento de +800 pessoas.',
@@ -69,9 +94,10 @@ export const projects = [
   },
   {
     slug: 'mgb-processos-estocasticos',
+    order: 4,
     category: 'Estatística',
     title: 'Simulação de Ações com Movimento Geométrico Browniano',
-    hook: 'Simulação de Monte Carlo pra projetar preços de ações reais (VALE3 e ITUB4) usando Movimento Geométrico Browniano.',
+    hook: 'Simulação de Monte Carlo pra projetar preços de ações reais usando Movimento Geométrico Browniano.',
     coverImage: '/images/projects/mgb-cover.png',
     tags: ['Estocástico', 'Movimento Browniano', 'R Shiny', 'Backtesting'],
     actions: [
@@ -118,18 +144,19 @@ export const projects = [
   },
   {
     slug: 'pipoca-experimento',
+    order: 2,
     category: 'Estatística',
     title: 'Qualidade do Cozimento de Milho de Pipoca',
-    hook: 'Um delineamento experimental comparando grãos não estourados entre três marcas de pipoca de preços bem diferentes, do comum ao super premium.',
+    hook: 'Delineamento experimental comparando grãos não estourados entre três marcas de pipoca com preços diferentes.',
     coverImage: 'https://images.unsplash.com/photo-1585647347384-2593bc35786b?auto=format&fit=crop&q=80',
-    tags: ['Delineamento de Experimentos', 'ANOVA', 'R', 'Teste de Hipóteses'],
+    tags: ['Delineamento de Experimentos', 'ANOVA', 'R', 'Experimento Controlado'],
     actions: [
       { label: 'Ver relatório completo ↗', url: 'https://drive.google.com/file/d/1FEm2NfNO34lStG4_5kXsprnGEQFfcRNR/view?usp=share_link' },
     ],
     sections: [
       {
         eyebrow: 'Contexto',
-        text: 'O projeto surgiu a partir da **disciplina de Delineamento e Análise de Experimentos**, do curso de Estatística da UnB, ministrada pelo professor George von Borries. Foi nos proposto um **experimento real** pra simular, na prática, como se conduz um delineamento controlado do início ao fim.',
+        text: 'O projeto surgiu a partir da **disciplina de Delineamento e Análise de Experimentos**, do curso de Estatística da UnB. Foi proposto um **experimento real** pra simular, na prática, como se conduz um delineamento controlado do início ao fim.',
       },
       {
         eyebrow: 'Objetivo',
@@ -167,17 +194,45 @@ export const projects = [
   },
   {
     slug: 'prova-multivariada-cedulas',
+    order: 5,
     category: 'Estatística',
-    title: 'Prova Multivariada — Análise de Cédulas',
-    hook: 'TODO',
-    tags: [],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
-    coverImage: 'https://images.unsplash.com/photo-1620912189866-474843b0aa0e?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
+    title: 'Detecção de Notas Falsificadas com Análise Multivariada',
+    hook: 'Aplicação de técnicas de clusterização e classificação multivariada para distinguir cédulas reais de falsas usando medidas físicas do papel.',
+    coverImage: '/images/projects/notas-cover.jpg',
+    tags: ['Análise Multivariada', 'Machine Learning', 'R', 'Clusterização'],
+    actions: [
+      { label: 'Ver relatório completo ↗', url: 'https://drive.google.com/file/d/1h6_erRcI3itg5_oWmoVr48_sARGYkhcq/view?usp=share_link' },
+    ],
+    sections: [
+      {
+        eyebrow: 'Contexto',
+        text: 'Projeto para a disciplina de **Análise Multivariada** na UnB. O objetivo era **detectar fraudes** analisando seis **medidas físicas de cédulas** (metade genuínas e metade falsificadas) para **distinguir sua autenticidade**.',
+      },
+      {
+        eyebrow: 'Metodologia',
+        text: 'O grande diferencial **não foi rodar um único modelo**, mas aplicar um **arsenal multivariado** no R para avaliar diferentes cenários. Conduzi a análise partindo da exploração das **matrizes de covariância**, avançando para testes com **algoritmos de agrupamento** (Hierárquico, K-means e Mistura de Normais) e técnicas de **classificação supervisionada** (LDA, QDA e Regressão Logística).',
+        images: [
+          '/images/projects/notas-1.png',
+          '/images/projects/notas-2.png',
+        ],
+      },
+      {
+        eyebrow: 'Resultados',
+        text: 'Mais do que gerar classificações corretas, o projeto entregou um **comparativo sobre os limites de cada algoritmo**. Isolei as variáveis com maior poder discriminatório e auditei o desempenho dos modelos, concluindo que o **LDA entregava a solução mais estável** e parcimoniosa para o problema. Em contrapartida, diagnostiquei que a **Regressão Logística**, apesar de parecer promissora, **sofria instabilidade devido à separação perfeita** dos dados, evidenciando os riscos de adotar modelos baseando-se unicamente em métricas de precisão.',
+        images: [
+          '/images/projects/notas-3.png',
+          '/images/projects/notas-4.png',
+        ],
+      },
+      {
+        eyebrow: 'Aprendizados',
+        text: 'O maior ganho foi **ir além de apenas rodar modelos prontos** e entender a fundo a **matemática por trás dos algoritmos de classificação e agrupamento**. Compreender as limitações reais de cada técnica contribui para saber qual método aplicar de acordo com a estrutura dos dados.',
+      },
+    ],
   },
   {
     slug: 'estat-diretoria-negocios',
+    order: 3,
     category: 'Negócios',
     title: 'Diretoria de Negócios ESTAT',
     hook: 'Como levei a ESTAT ao maior faturamento da sua história, unificando Vendas e Marketing e reestruturando CRM, tráfego e time comercial em um ano de gestão.',
@@ -242,15 +297,48 @@ export const projects = [
     ],
   },
   {
-    slug: 'amostragem-carros-chineses',
+    slug: 'carros-chineses',
+    order: 5,
     category: 'Estatística',
-    title: 'Amostragem de Carros Chineses na UnB',
-    hook: 'TODO',
-    tags: [],
-    sections: [{ eyebrow: 'TODO', text: 'TODO' }],
-    coverImage: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&q=80',
-    link: '#',
-    githubUrl: '#'
+    title: 'Proporção de Carros Chineses na UnB',
+    hook: 'Pesquisa em campo utilizando técnicas de Amostragem para estimar a proporção de veículos chineses no estacionamento da Faculdade de Saúde na UnB.',
+    coverImage: 'images/projects/carros-capa.jpg',
+    tags: ['Amostragem', 'Pesquisa de Campo', 'SAS', 'Teste de Hipóteses'],
+    actions: [
+      { label: 'Ver relatório completo ↗', url: 'https://drive.google.com/file/d/1Ue5q4txmcJChGdLkJ4BtOaU2WNw7aGgQ/view?usp=share_link' },
+    ],
+    sections: [
+      {
+        eyebrow: 'Contexto',
+        text: 'Projeto da disciplina de **Técnicas de Amostragem** na UnB, com o objetivo de **estimar a proporção** de veículos de marca chinesa no estacionamento da Faculdade de Saúde (FS), no campus Darcy Ribeiro.',
+      },
+      {
+        eyebrow: 'Metodologia Amostral',
+        text: 'Com a **população de vagas conhecida**, calculamos o tamanho da amostra necessária pela fórmula padrão de amostragem, com **95% de confiança** e margem de **erro de 7%**, no cenário mais conservador possível. **Corrigido para a população finita** de 188 vagas, o cálculo indicou que seria necessário sortear **96 vagas em cada dia** de coleta, planejada em turnos diferentes, pra não viciar o resultado por horário.',
+        image: '/images/projects/carros-amostra.png',
+      },
+      {
+        eyebrow: 'Pré-coleta',
+        text: 'Antes de sortear, mapeamos o estacionamento e enumeramos as **188 vagas existentes**, criando um **mapa de referência** pra guiar quais vagas foram sorteadas e **facilitar na hora da coleta**.',
+        image: '/images/projects/carros-mapa.png',
+      },
+      {
+        eyebrow: 'Coleta em campo',
+        text: '**Sorteamos as 96 vagas** para cada dia com um programa em Python que lia números aleatórios de um livro especializado. Em campo, um **formulário único padronizou o registro** de cada vaga sorteada: ocupada ou vazia, marca, cor, tipo e motor do veículo.',
+      },
+      {
+        eyebrow: 'Resultados',
+        text: '**2,08%** dos veículos observados eram de **marca chinesa**, com intervalo de confiança de 95% entre **0,07% e 4,10%**.\n\nComo achado extra, houve significância estatística para a **associação entre marca e cor** do veículo (europeus tendem ao branco, japoneses ao cinza), mas **nenhuma associação entre marca e tipo de veículo**.',
+        images: [
+          '/images/projects/carros-result2.png',
+          '/images/projects/carros-result3.png',
+        ],
+      },
+      {
+        eyebrow: 'Observação',
+        text: 'O escopo do projeto foi **específico** para **Amostragem Aleatória Simples**, então foi essa a técnica usada. Mas com quase **40% das vagas sorteadas vazias**, ficou claro que uma amostragem inversa, por exemplo, teria sido mais eficiente nesse cenário.',
+      },
+    ],
   }
 ];
 

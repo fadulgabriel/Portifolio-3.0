@@ -16,13 +16,20 @@ const Projects = () => {
   // State para guardar quais os cartões que estão visíveis e acender as bolinhas
   const [visibleIndices, setVisibleIndices] = useState([0, 1, 2])
 
+  // Sort by order first, missing order goes to the end
+  const sortedProjects = [...projects].sort((a, b) => {
+    const orderA = a.order ?? Infinity;
+    const orderB = b.order ?? Infinity;
+    return orderA - orderB;
+  });
+
   // Filtro 100% dinâmico extraindo de data/projects.js
-  const projectTypes = ['Todos', ...new Set(projects.map((p) => p.category))]
+  const projectTypes = ['Todos', ...new Set(sortedProjects.map((p) => p.category))]
 
   const filteredProjects =
     filter === 'Todos'
-      ? projects
-      : projects.filter((project) => project.category === filter)
+      ? sortedProjects
+      : sortedProjects.filter((project) => project.category === filter)
 
   // Função para as setas do carrossel
   const scroll = (direction) => {
