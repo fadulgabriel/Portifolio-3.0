@@ -103,11 +103,11 @@ const Hero = () => {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
               style={{ x: parallaxX, y: parallaxY }}
-            >
+            > 
               <div className="hero-image-wrapper">
                 <div className="hero-image-ring"></div>
                 <img
-                  src="/foto-perfil2.png"
+                  src="foto-perfil2.png"
                   alt="Gabriel Fadul"
                   className="hero-image"
                 />
