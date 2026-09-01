@@ -107,7 +107,7 @@ const Hero = () => {
               <div className="hero-image-wrapper">
                 <div className="hero-image-ring"></div>
                 <img
-                  src="foto-perfil2.png"
+                  src="/images/projects/foto-perfil2.png"
                   alt="Gabriel Fadul"
                   className="hero-image"
                 />
