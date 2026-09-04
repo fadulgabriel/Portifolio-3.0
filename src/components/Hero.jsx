@@ -115,15 +115,7 @@ const Hero = () => {
             </motion.div>
           </div>
 
-          <motion.div
-            className="scroll-indicator"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-            onClick={() => scrollToSection('about')}
-          >
-            <FaArrowDown />
-          </motion.div>
+
         </motion.div>
       </div>
     </section>
