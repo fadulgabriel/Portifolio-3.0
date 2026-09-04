@@ -63,7 +63,7 @@ export const projects = [
       },
       {
         eyebrow: 'sbjr.com.br',
-        text: 'Como participante em edições passadas, eu nunca sabia qual palestra escolher entre as que aconteciam simultaneamente. **Desenvolvi um web app** que cruzava o perfil de cada participante com a dor da sua empresa e recomendava uma trilha com base no conteúdo das palestras. Obtive uma adesão de **mais de 350 respostas (47% do público)**, hoje uma **base real de dados** para a Federação entender as dores dos congressistas.',
+        text: '**Desenvolvi um web app** que cruzava o perfil de cada participante com a dor da sua empresa e recomendava uma trilha com base no conteúdo das palestras. Obtive uma adesão de **mais de 350 respostas (47% do público)**, hoje uma **base real de dados** para a Federação entender as dores dos congressistas.',
         cta: { label: 'Ver site ↗', url: 'https://sbjr.com.br' },
         image: '/images/projects/sbjr-2026-app.png',
       },
